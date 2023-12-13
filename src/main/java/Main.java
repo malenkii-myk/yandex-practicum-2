@@ -44,7 +44,7 @@ public class Main {
         System.out.println("Калькулятор счёта");
 
         Scanner scanner = new Scanner(System.in);
-
+        scanner.useDelimiter("\n");
         int peoples = 0;
         String userInput = "";
 
@@ -78,7 +78,7 @@ public class Main {
             // цена товара
             System.out.println("Укажите цену для товара №"+(menu.count+1)+( tovar.name.length() == 0 ? " ("+tovar.name+")" : "")+":");
             while (true) {
-                userInput = scanner.next();
+                userInput = scanner.next().trim();
                 try {
                     tovar.price = Double.parseDouble(userInput);
                     break;
@@ -96,8 +96,8 @@ public class Main {
             }
 
             System.out.println("Добавить следующий товар?\r\nВведите любой символ чтобы продолжить или введите \"Завершить\" чтобы закончить формирование списка.");
-            userInput = scanner.next();
-            if ( userInput.equalsIgnoreCase( "завершить" )  ) {
+            userInput = scanner.next().trim();
+            if (userInput.equalsIgnoreCase("завершить")) {
                 break;
             }
         }
