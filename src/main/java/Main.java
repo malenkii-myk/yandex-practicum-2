@@ -81,7 +81,11 @@ public class Main {
                 userInput = scanner.next().trim();
                 try {
                     tovar.price = Double.parseDouble(userInput);
-                    break;
+                    if (tovar.price > 0) {
+                        break;
+                    } else {
+                        System.out.println("ОШИБКА: цена не может быть отрицательной или нулём");
+                    }
                 } catch (Exception e) {
                     System.out.println("ОШИБКА: Некорректное значение, попробуйте ещё раз");
                 }
