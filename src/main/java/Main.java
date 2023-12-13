@@ -50,7 +50,7 @@ public class Main {
 
         while (peoples < 2) {
             System.out.println("Укажите кол-во человек:");
-            userInput = scanner.next();
+            userInput = scanner.next().trim();
             try {
                 peoples = Integer.parseInt(userInput);
                 if (peoples == 1) {
@@ -73,7 +73,7 @@ public class Main {
 
             // название товара
             System.out.println("Укажите название для товара №"+(menu.count+1)+":");
-            tovar.name = scanner.next();
+            tovar.name = scanner.next().trim();
 
             // цена товара
             System.out.println("Укажите цену для товара №"+(menu.count+1)+( tovar.name.length() == 0 ? " ("+tovar.name+")" : "")+":");
