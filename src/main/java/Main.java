@@ -7,9 +7,9 @@ class Menu {
     double totalPrice = 0;
     int count = 0; // кол-во товаров в списке
 
-    public boolean tovar_add( Tovar tovar) {
+    public boolean addProduct( Product tovar ) {
         this.count++;
-        this.list += this.count + " - " + tovar.get_info() + "\r\n";
+        this.list += this.count + " - " + tovar.getInfo() + "\r\n";
         this.totalPrice += tovar.price;
         return true;
     }
@@ -19,10 +19,10 @@ class Menu {
     }
 }
 
-class Tovar {
+class Product {
     String name;
     double price;
-    public String get_info() {
+    public String getInfo() {
         return String.format("%s = %.2f %s", this.name, this.price, new Formatter().roubles(this.price) );
     }
 }
@@ -44,13 +44,13 @@ public class Main {
         System.out.println("Калькулятор счёта");
 
         Scanner scanner = new Scanner(System.in);
-
+        scanner.useDelimiter("\n");
         int peoples = 0;
         String userInput = "";
 
         while (peoples < 2) {
             System.out.println("Укажите кол-во человек:");
-            userInput = scanner.next();
+            userInput = scanner.next().trim();
             try {
                 peoples = Integer.parseInt(userInput);
                 if (peoples == 1) {
@@ -63,41 +63,43 @@ public class Main {
             }
         }
 
-        //System.out.println("Количество = "+peoples);
-
         Menu menu = new Menu();
 
         while (true) {
 
-            Tovar tovar = new Tovar();
+            Product tovar = new Product();
 
             // название товара
             System.out.println("Укажите название для товара №"+(menu.count+1)+":");
-            tovar.name = scanner.next();
+            tovar.name = scanner.next().trim();
 
             // цена товара
             System.out.println("Укажите цену для товара №"+(menu.count+1)+( tovar.name.length() == 0 ? " ("+tovar.name+")" : "")+":");
             while (true) {
-                userInput = scanner.next();
+                userInput = scanner.next().trim();
                 try {
                     tovar.price = Double.parseDouble(userInput);
-                    break;
+                    if (tovar.price > 0) {
+                        break;
+                    } else {
+                        System.out.println("ОШИБКА: цена не может быть отрицательной или нулём");
+                    }
                 } catch (Exception e) {
                     System.out.println("ОШИБКА: Некорректное значение, попробуйте ещё раз");
                 }
             }
 
             // добавляем товар в меню
-            if ( menu.tovar_add( tovar )) {
-                System.out.println("Товар №" + menu.count + " (" + tovar.get_info() + ") успешно добален.");
+            if ( menu.addProduct( tovar )) {
+                System.out.println("Товар №" + menu.count + " (" + tovar.getInfo() + ") успешно добален.");
             } else {
                 System.out.println("ОШИБКА: товар не добавлен");
                 break;
             }
 
             System.out.println("Добавить следующий товар?\r\nВведите любой символ чтобы продолжить или введите \"Завершить\" чтобы закончить формирование списка.");
-            userInput = scanner.next();
-            if ( userInput.equalsIgnoreCase( "завершить" )  ) {
+            userInput = scanner.next().trim();
+            if (userInput.equalsIgnoreCase("завершить")) {
                 break;
             }
         }
