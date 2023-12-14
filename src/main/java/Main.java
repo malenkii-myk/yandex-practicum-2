@@ -7,7 +7,7 @@ class Menu {
     double totalPrice = 0;
     int count = 0; // кол-во товаров в списке
 
-    public boolean addTovar( Tovar tovar ) {
+    public boolean addProduct( Product tovar ) {
         this.count++;
         this.list += this.count + " - " + tovar.getInfo() + "\r\n";
         this.totalPrice += tovar.price;
@@ -19,7 +19,7 @@ class Menu {
     }
 }
 
-class Tovar {
+class Product {
     String name;
     double price;
     public String getInfo() {
@@ -63,13 +63,11 @@ public class Main {
             }
         }
 
-        //System.out.println("Количество = "+peoples);
-
         Menu menu = new Menu();
 
         while (true) {
 
-            Tovar tovar = new Tovar();
+            Product tovar = new Product();
 
             // название товара
             System.out.println("Укажите название для товара №"+(menu.count+1)+":");
@@ -92,7 +90,7 @@ public class Main {
             }
 
             // добавляем товар в меню
-            if ( menu.addTovar( tovar )) {
+            if ( menu.addProduct( tovar )) {
                 System.out.println("Товар №" + menu.count + " (" + tovar.getInfo() + ") успешно добален.");
             } else {
                 System.out.println("ОШИБКА: товар не добавлен");
